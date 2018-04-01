@@ -1,0 +1,6 @@
+framework module Pods_SwipeToConfirmTests {
+  umbrella header "Pods-SwipeToConfirmTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
