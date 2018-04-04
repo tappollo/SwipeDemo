@@ -56,9 +56,12 @@ protocol SlideButtonDelegate{
     @objc func panDetected(sender: UIPanGestureRecognizer){
         var translatedPoint = sender.translation(in: self)
         translatedPoint     = CGPoint(x: translatedPoint.x, y: self.frame.size.height / 2)
-        sender.view?.frame.origin.x = 7 + translatedPoint.x
+        if translatedPoint.x < self.frame.width - 14 - 42 {
+            sender.view?.frame.origin.x = 7 + translatedPoint.x
+        }
         self.promptLabel.alpha = (self.frame.size.width - translatedPoint.x)/self.frame.size.width
         self.priceLabel.alpha = (self.frame.size.width - translatedPoint.x)/self.frame.size.width
+        
         if sender.state == .ended{
             let velocityX = sender.velocity(in: self).x * 0.2
             var finalX    = translatedPoint.x + velocityX
