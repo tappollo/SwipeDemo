@@ -54,18 +54,16 @@ protocol SlideButtonDelegate{
     }
     
     @objc func panDetected(sender: UIPanGestureRecognizer){
-        var translatedPoint = sender.translation(in: self)
-        translatedPoint     = CGPoint(x: translatedPoint.x, y: self.frame.size.height / 2)
-        if translatedPoint.x < self.frame.width - 14 - 42 {
+        let translatedPoint     = CGPoint(x: sender.translation(in: self).x, y: self.frame.size.height / 2)
+        if (translatedPoint.x < self.frame.width - 14 - 42) && (translatedPoint.x >= 0) {
             sender.view?.frame.origin.x = 7 + translatedPoint.x
         }
         self.promptLabel.alpha = (self.frame.size.width - translatedPoint.x)/self.frame.size.width
         self.priceLabel.alpha = (self.frame.size.width - translatedPoint.x)/self.frame.size.width
-        
         if sender.state == .ended{
             let velocityX = sender.velocity(in: self).x * 0.2
             var finalX    = translatedPoint.x + velocityX
-            if finalX < 0{
+            if finalX < 0 {
                 finalX = 0
             }else if finalX + 56  > (self.frame.size.width){
                 unlocked = true
